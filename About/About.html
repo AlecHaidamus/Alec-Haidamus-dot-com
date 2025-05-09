@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <link rel="stylesheet" href="../style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="images/paper_background_about.jpg" as="image">
+    <link rel="preload" href="images/Sequence 01_1.gif" as="image">
+
+
+    <title>About Alec</title>
+    <style>
+        body, html {
+            background-color: black;
+            background-image: url("images/paper_background_about.jpg"); 
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            margin: 0; 
+            padding: 0;
+            cursor: url(images/), auto;
+            overflow: hidden;
+
+
+        }
+
+        #cursor{
+            mix-blend-mode: difference;
+        }
+
+        @keyframes unblur {
+            from {
+                filter: blur(160px);
+            }
+            to {
+                filter: blur(0);
+            }
+        }
+
+        
+
+        .blurb {
+            position: fixed;
+            top: 14vh; 
+            left: 16vw; 
+            max-width: 25%;
+            width: auto;
+            height: auto;
+            min-width: 330px;
+            rotate: -3deg;
+        }
+
+        .fixed-gif {
+            position: fixed;
+            bottom: 0;
+            right: 75px;
+            width: 900px;
+            height: auto;
+            mix-blend-mode:exclusion;
+            filter: blur(160px);
+            animation: unblur 3s ease forwards;
+            max-width: 120vw;
+        }
+
+        
+
+        @media (max-width: 1200px) {
+            .blurb {
+                left: 20%; 
+                top: 90px;
+                transition: top 1s ease, left 1s ease, right 1s ease; 
+            }
+            .fixed-gif {
+                bottom: -70;
+                right: -20px; 
+                transition: top 1s ease, right 1s ease; 
+                max-height: 90vh;
+                width: auto;
+            }
+        }
+
+       
+    </style>
+</head>
+<body>
+    <img src="images/Sequence 01_1.gif" alt="3D Particle render of Alec" class="fixed-gif">
+    <img src="images/meblurb.png" alt="Handwritten Text" class="blurb">
+
+        <a href="../index.html">
+            <img src="../index/images/ARROW 1.png" alt="back arrow" class="backImg">
+        </a>
+
+</body>
+</html>

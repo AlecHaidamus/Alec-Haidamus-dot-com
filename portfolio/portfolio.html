@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+  <title>Alec's Portfolio</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preload" href="images/paper_background_portfolio.jpg" as="image">
+
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: black url("images/paper_background_portfolio.jpg") center/cover fixed;
+      cursor: url(images/), auto;
+      overflow: hidden;
+    }
+
+    .thumbnail {
+      /* drift/rotate vars */
+      --drift-x: 0px;
+      --drift-y: 0px;
+      --drift-rot: 0deg;
+
+      position: relative;
+      display: block;
+      max-width: 25%;
+      margin-top: -1rem;
+  will-change: transform;
+  transition: transform 1s ease-out;
+
+      transform:
+        translate(var(--drift-x), var(--drift-y))
+        rotate(var(--drift-rot));
+    }
+    .thumbnail img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(10px 7px 10px #000);
+    }
+     /* .thumbnail:hover {
+      transform:
+        scale(1.05);
+      transition: ease-out 0.1s;
+    }  */
+
+    #scroll-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 50vh 0 20vh;
+    }
+    #scroll-container::-webkit-scrollbar { display: none; }
+    #scroll-container::after {
+      content: "";
+      display: block;
+      height: 70vh;
+    }
+
+    /* your horizontal offsets */
+    #dreamscape { left: 15vw; }
+    #forest    { left: 60vw; }
+    #sound     { left:   8vw; }
+    #particle  { left:    5%; }
+    #cake      { left: 12vw; }
+    #codeweb   { left: 60vw; }
+    #jordan    { left: 35vw; }
+    #musicvid  { left: 45vw; }
+    #shortwave { left: 20vw; }
+    #guitar    { left: 60vw; }
+    #growth    { left: 15vw; }
+    #jelly     { left: 42vw; }
+
+    
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background-color: rgba(0,0,0,0.9);
+      overflow: auto;
+    }
+   .modal-content {
+  display: block;
+  margin: 60px auto 10px;    /* add a bottom gap for the nav */
+  /* max-width: 90vw; */
+  max-height: 70vh;
+}
+
+.modal-nav {
+  /* drop the absolute positioning */
+  position: static;
+  display: flex;
+  justify-content: center;    /* center buttons horizontally */
+  gap: 10px;                  /* small space between them */
+  margin: 0 auto 20px;       /* some bottom breathing room */
+  width: 100%;
+  max-width: 80vw;
+}
+.modal-nav button {
+  background-color: transparent;   /* only the colour part           */
+  background-position: center;
+  background-size:    cover;
+  background-repeat:  no-repeat;
+  cursor: pointer;
+  width: 50px; height: 50px;
+  margin: 0 15px;
+  border: none;
+  mix-blend-mode: normal;
+}
+
+.modal-prev  { background-image: url("images/back1.png"); }
+.modal-next  { background-image: url("images/forward1.png"); }
+.modal-prev:hover  { background-image: url("images/back2.png"); }
+.modal-next:hover  { background-image: url("images/forward2.png"); }
+
+    .close {
+      position: absolute;
+      top: 3%; right: 2%;
+      width: 70px; height: 70px;
+      cursor: pointer;
+      background: url("images/X1.png") center/cover no-repeat;
+    }
+    .close:hover {
+      background-image: url("images/X2.png");
+    }
+
+    /* keep YouTube player perfectly 16:9 and remove any frame */
+iframe.modal-content {
+  width: 80vw;            /* pick any width you like */
+  max-width: 960px;       /* cap it on very wide screens */
+  aspect-ratio: 16 / 9;   /* ✨ this auto-sets the height */
+  height: auto;           /* (fallback for older browsers) */
+  border: 0;              /* kills the thin outline some browsers add */
+  background: #000;       /* black while the player loads */
+}
+
+/* — medium-label fixed in the top-right — */
+#mediumPreview {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 120px;               /* shrink/enlarge as needed */
+  pointer-events: none;
+  z-index: 4000;
+  opacity: 0;                 /* hidden until hover */
+  transition: opacity .15s ease-out;
+  filter: drop-shadow(4px 4px 8px #000);
+}
+
+
+  </style>
+</head>
+<body>
+  <img id="mediumPreview" alt="">
+
+  <div id="scroll-container">
+    <a class="thumbnail" id="dreamscape" href="#">
+      <img src="images/thumbnails/dreamscape.png" alt="Dreamscape">
+    </a>
+    <a class="thumbnail" id="codeweb"
+       href="https://alechaidamus.github.io/Creative_Coding_Website/">
+      <img src="images/thumbnails/codewebsite.png" alt="Code Website">
+    </a>
+    <a class="thumbnail" id="growth" href="#">
+      <img src="images/thumbnails/growth.png" alt="Growth">
+    </a>
+    <a class="thumbnail" id="musicvid" href="#">
+      <img src="images/thumbnails/musicvid.png" alt="Music Video">
+    </a>
+    <a class="thumbnail" id="cake" href="../cake/cake.html">
+      <img src="images/thumbnails/cake.png" alt="Cake">
+    </a>
+    <a class="thumbnail" id="forest" href="#">
+      <img src="images/thumbnails/forest.png" alt="Forest">
+    </a>
+    <a class="thumbnail" id="jordan" href="#">
+      <img src="images/thumbnails/jordan.png" alt="Jordan">
+    </a>
+    <a class="thumbnail" id="particle" href="#">
+      <img src="images/thumbnails/particle.png" alt="Particle">
+    </a>
+    <a class="thumbnail" id="shortwave" href="#">
+      <img src="images/thumbnails/shortwave.png" alt="Shortwave">
+    </a>
+    <a class="thumbnail" id="guitar" href="#">
+      <img src="images/thumbnails/guitar.png" alt="Guitar">
+    </a>
+    <a class="thumbnail" id="sound" href="../Sound/Sound.html">
+      <img src="images/thumbnails/sound.png" alt="Sound">
+    </a>
+    <a class="thumbnail" id="jelly" href="#">
+      <img src="images/thumbnails/jelly.png" alt="Jelly">
+    </a>
+  </div>
+
+  <a href="../index.html">
+    <img src="../index/images/ARROW 1.png" alt="back arrow" class="backImg">
+  </a>
+
+
+   <div id="myModal" class="modal">
+    <span class="close" aria-label="Close"></span>
+    <img class="modal-content" id="img01" alt="expanded view">
+   <!-- video slot (starts hidden) -->
+  <iframe class="modal-content" id="vid01" src=""
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen style="display:none;"></iframe>
+
+    <div class="modal-nav">
+      <button id="prev" class="modal-prev" aria-label="Previous"></button>
+      <button id="next" class="modal-next" aria-label="Next"></button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('scroll-container');
+      const thumbs    = Array.from(container.querySelectorAll('.thumbnail'));
+
+      // give each thumb its own angle & direction
+      thumbs.forEach(t => {
+        t._driftAngle = Math.random() * Math.PI * 2;
+        t._dir        = Math.random() * 2 - 1;
+      });
+
+      const maxDrift  = 100; // px
+      const maxRotate = 40;  // deg
+      let ticking = false;
+
+      function updateEffects() {
+        const { top: cTop, height: cH } = container.getBoundingClientRect();
+        const centreY = cTop + cH / 2;
+
+        thumbs.forEach(thumb => {
+          const { top, height } = thumb.getBoundingClientRect();
+          const offset = (top + height/2) - centreY;
+          const norm   = Math.max(-1, Math.min(1, offset / (cH/2)));
+
+          // compute drift vector
+          const driftMag = norm * maxDrift;
+          const dx = driftMag * Math.cos(thumb._driftAngle);
+          const dy = driftMag * Math.sin(thumb._driftAngle);
+          const angle = norm * maxRotate * thumb._dir;
+
+          // update the CSS vars
+          thumb.style.setProperty('--drift-x', dx + 'px');
+          thumb.style.setProperty('--drift-y', dy + 'px');
+          thumb.style.setProperty('--drift-rot', angle + 'deg');
+        });
+
+        ticking = false;
+      }
+
+      container.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(updateEffects);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        if (!ticking) {
+          requestAnimationFrame(updateEffects);
+          ticking = true;
+        }
+      });
+
+      // initial layout
+      updateEffects();
+    });
+  </script>
+   <script>
+/* ─────────── cached DOM refs ─────────── */
+const modal     = document.getElementById('myModal');
+const imgSlot   = document.getElementById('img01');
+const vidSlot   = document.getElementById('vid01');
+const btnPrev   = document.getElementById('prev');
+const btnNext   = document.getElementById('next');
+const btnClose  = document.querySelector('.close');
+
+/* ─────────── state ─────────── */
+let currentSet = [];
+let currentIdx = 0;
+let isVideo    = false;
+
+/* ─────────── helper: hide / show arrows ─────────── */
+function updateNavButtons () {
+  const showArrows = !isVideo;
+  btnPrev.style.visibility = showArrows && currentIdx === 0
+    ? 'hidden' : (showArrows ? 'visible' : 'hidden');
+  btnNext.style.visibility = showArrows && currentIdx === currentSet.length - 1
+    ? 'hidden' : (showArrows ? 'visible' : 'hidden');
+}
+
+/* ─────────── constructor for image galleries ─────────── */
+function openImageModal (triggerEl, images) {
+  triggerEl.addEventListener('click', e => {
+    e.preventDefault();
+
+    isVideo = false;
+    currentSet = images;
+    currentIdx = 0;
+
+    imgSlot.src            = images[0];
+    imgSlot.style.display  = '';
+    vidSlot.style.display  = 'none';
+
+    updateNavButtons();
+    modal.style.display = 'block';
+  });
+}
+
+/* ─────────── constructor for a YouTube video ─────────── */
+function openVideoModal (triggerEl, youtubeID) {
+  const embed = `https://www.youtube.com/embed/${youtubeID}?rel=0&autoplay=1`;
+
+  triggerEl.addEventListener('click', e => {
+    e.preventDefault();
+
+    isVideo = true;
+
+    vidSlot.src           = embed;
+    vidSlot.style.display = '';
+    imgSlot.style.display = 'none';
+
+    updateNavButtons();          // hides both arrows
+    modal.style.display = 'block';
+  });
+}
+
+/* ─────────── nav controls ─────────── */
+btnPrev.onclick = () => {
+  if (!isVideo && currentIdx > 0) {
+    imgSlot.src = currentSet[--currentIdx];
+    updateNavButtons();
+  }
+};
+btnNext.onclick = () => {
+  if (!isVideo && currentIdx < currentSet.length - 1) {
+    imgSlot.src = currentSet[++currentIdx];
+    updateNavButtons();
+  }
+};
+
+/* ─────────── close ─────────── */
+btnClose.onclick = () => {
+  modal.style.display = 'none';
+  vidSlot.src = '';           // stop video on close
+};
+
+/* ─────────── register galleries & video ─────────── */
+openImageModal(
+  document.getElementById('guitar'),
+  [
+    'images/guitar/guitar_pickguard_shot_1.jpg',
+    'images/guitar/guitar_bodyshot_1.jpg'
+  ]
+);
+
+openImageModal(
+  document.getElementById('jordan'),
+  [
+    'images/jordan/NorthEast.jpg',
+    'images/jordan/SouthEast.jpg',
+    'images/jordan/SouthWest.jpg',
+    'images/jordan/SouthWest2.jpg',
+    'images/jordan/NorthEast.jpg'
+  ]
+);
+
+openVideoModal(
+  document.getElementById('musicvid'),
+  '7ZfvmJdgKVY'      // YouTube ID extracted from your link
+);
+
+function openVimeoModal (triggerEl, vimeoID) {
+  const embed = `https://player.vimeo.com/video/${vimeoID}?badge=0&autopause=0&player_id=0`;
+
+  triggerEl.addEventListener('click', e => {
+    e.preventDefault();
+
+    isVideo = true;                 // tell the nav logic we’re in “video mode”
+    vidSlot.src           = embed;  // load Vimeo player
+    vidSlot.style.display = '';
+    imgSlot.style.display = 'none';
+
+    updateNavButtons();             // hides both arrows
+    modal.style.display = 'block';
+  });
+}
+
+openVimeoModal(
+  document.getElementById('particle'),   // Particles thumbnail
+  '941872335'                            // Vimeo video ID
+);
+
+openVimeoModal(
+  document.getElementById('shortwave'),  // Short‑wave thumbnail
+  '942035395'
+);
+
+openVimeoModal(
+  document.getElementById('jelly'),      // Jellys thumbnail
+  '941910618'
+);
+
+openVimeoModal(
+  document.getElementById('growth'),      // Jellys thumbnail
+  '1082888242'
+);
+
+</script>
+<script>
+/* ── 1. preview element & lookup table ────────────────────────── */
+const preview = document.getElementById('mediumPreview');
+
+/*  Map each thumbnail’s *id* → the PNG you want to show.
+    Adjust the paths / filenames freely.                           */
+const mediumImg = {
+  dreamscape : 'images/pop up txt/VR experience.png',
+  codeweb    : 'images/pop up txt/Creative Code.png',
+  growth     : 'images/pop up txt/FX animation.png',
+  musicvid   : 'images/pop up txt/Music Video.png',
+  cake       : 'images/pop up txt/Original recipe.png',
+  forest     : 'images/pop up txt/VR experience.png',
+  jordan     : 'images/pop up txt/3D model.png',
+  particle   : 'images/pop up txt/Live Video.png',
+  shortwave  : 'images/pop up txt/Live Video.png',
+  guitar     : 'images/pop up txt/3D model.png',
+  sound      : 'images/pop up txt/Sound Design.png',
+  jelly      : 'images/pop up txt/Live Video.png'
+};
+
+document.querySelectorAll('#scroll-container .thumbnail').forEach(thumb => {
+  const src = mediumImg[thumb.id];
+  if (!src) return;                            // skip if no match
+
+  thumb.addEventListener('mouseenter', () => {
+    preview.src = src;
+    preview.style.opacity = '1';
+  });
+
+  thumb.addEventListener('mouseleave', () => {
+    preview.style.opacity = '0';
+  });
+});
+
+/* Optional: hide preview when the modal opens */
+document.getElementById('myModal')
+        .addEventListener('transitionstart', () => {
+          preview.style.opacity = '0';
+        });
+</script>
+
+
+
+  
+</body>

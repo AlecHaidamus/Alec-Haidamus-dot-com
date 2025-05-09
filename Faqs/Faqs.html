@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <link rel="stylesheet" href="../style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="images/paper_background_FAQs.jpg" as="image?">
+
+
+    <title>FAQs</title>
+    <style>
+        body, html {
+            background-color: black ;
+            background-image: url("images/paper_background_FAQs.jpg"); 
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden;
+        }
+
+    
+
+
+.drawing{
+    display: block;
+    position: fixed;
+    top: 7vh; 
+    right: 5vw; 
+    max-width: 40%;
+    width: auto;
+    height: auto;
+    min-width: 600px;
+}
+
+.whatsinpockets {
+    display: block;
+    position: fixed;
+    left: 18%;
+    top: calc(50vh - 5px); 
+    max-width: 30%;
+    min-width: 400px; 
+    min-height: 150px; 
+    width: auto;
+    height: auto;
+    z-index: 1; 
+    transition: top 0.5s ease, right 0.5s ease; 
+    mix-blend-mode: lighten;
+    cursor: pointer;
+}
+
+.pocketcontents {
+    position: fixed;
+    top: 0%; 
+    right: 30%;
+    max-width: 80%;
+    min-width: 350px; 
+    min-height: auto; 
+    width: auto;
+    height: auto;
+    z-index: 1; 
+    transition: top 0.5s ease, right 0.5s ease; 
+    opacity: 90%;
+    z-index: 10;
+
+}
+
+@media (max-width: 700px) {
+        .pocketcontents {
+            position: fixed;
+            top: calc(40vh); 
+            right: calc(50vw - 500px);
+            max-width: 70%;
+            min-width: 1000px; 
+            min-height: auto; 
+            width: auto;
+            height: auto;
+            z-index: 1; 
+            transition: top 0.5s ease, right 0.5s ease; 
+            opacity: 90%;
+            cursor: pointer;
+            z-index: 10;
+
+
+            
+
+        }
+
+        .whatsinpockets {
+    position: fixed;
+    top: calc(50vh); 
+    right: calc(50vw - 800px); 
+    max-width: 30%;
+    min-width: 350px;
+    min-height: 150px; 
+    width: auto;
+    height: auto;
+    z-index: 1; 
+    transition: top 0.5s ease, right 0.5s ease; 
+    mix-blend-mode: lighten;
+}
+
+
+    }
+
+    .imageSet {
+    display: none; /* Initially hidden */
+    position: fixed;
+    left: 10%; /* Base left position of the container */
+    top: 40%; /* Base top position of the container */
+    width: 70%; /* Overall width of the container */
+    height: 60%; /* Overall height of the container */
+    z-index: 15; /* Ensure it is on top of other elements */
+    mix-blend-mode: lighten;
+}
+
+/* Base styles for image divs */
+.AreYourQs, .Yes, .No {
+    position: absolute; /* Position absolutely within the parent .imageSet */
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+    background-repeat: no-repeat;
+    mix-blend-mode: lighten;
+    background-size: contain;
+}
+
+/* Individual styles for each div */
+.AreYourQs {
+    top: 0; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    width: 40%; /* Adjust width as needed */
+}
+
+.Yes {
+    top: 50%; /* Adjust as needed */
+    left: 10%; /* Positioned right of .AreYourQs */
+    width: 10%; /* Adjust width as needed */
+    height: 50%; /* Adjust height as needed */
+    background-image: url("images/Yes1.jpg"); /* Default image for "Yes" */
+    background-size: contain;
+}
+
+.Yes:hover {
+    background-image: url("images/Yes2.jpg"); /* Image on hover for "Yes" */
+}
+
+.No {
+    top: 50%; /* Adjust as needed */
+    left: 25%; /* Positioned right of .Yes */
+    width: 10%; /* Adjust width as needed */
+    height: 50%; /* Adjust height as needed */
+    background-image: url("images/No1.jpg"); /* Default image for "No" */
+    background-size: contain;
+
+}
+
+.No:hover {
+    background-image: url("images/No2.jpg"); /* Image on hover for "No" */
+}
+
+
+
+.imageSetSecond {
+    display: none; /* Initially hidden */
+    position: fixed;
+    left: 10%; /* Base left position of the container */
+    top: 40%; /* Base top position of the container */
+    width: 70%; /* Overall width of the container */
+    height: 60%; /* Overall height of the container */
+    z-index: 16; /* Ensure it is on top when visible */
+    mix-blend-mode: lighten;
+}
+
+.Rightthisway, .guidehand, .door {
+    position: absolute;
+    top: 50%;
+    width: 30%; /* Adjust width as needed */
+    height: 50%; /* Adjust height as needed */
+    background-size: contain;
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+    background-repeat: no-repeat;
+    mix-blend-mode: lighten;
+}
+
+.Rightthisway {
+    left: 0%; /* Adjust as needed */
+    background-image: url('images/okrightthisway.jpg'); /* Adjust as needed */
+    top: -20%;
+    width: 50%;
+    min-width: 400px;
+}
+
+.guidehand {
+    left: 10%; /* Adjust as needed */
+    background-image: url('images/guidehand.jpg'); 
+    width: 30%;
+    min-width: 300px;
+    top: 30%;
+
+}
+
+.door {
+    top: 45%;
+    left: 85%; /* Adjust as needed */
+    width: 8.5%; /* Default width */
+    height: 50%; /* Default height */
+    background-image: url("images/door_closed.jpg"); /* Default image for "door" */
+    background-size: contain; /* Adjust background size to cover the area of the div */
+    transform: scale(3); /* Scale up by 50% */
+}
+
+.door:hover {
+    background-image: url("images/door_open.jpg"); /* Hover image for "door" */
+
+}
+
+
+.backyougo {
+    position: fixed;
+    top: 40%;
+    left: 30%; /* Centered more effectively */
+    width: 70%; /* Adjust the container width */
+    height: 60%; /* Adjust the container height */
+    z-index: 20; /* Ensure it is on top of other elements */
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+    overflow: hidden; /* Prevent any overflow */
+    mix-blend-mode: lighten;
+
+}
+
+.backyougo img {
+    width: 50%; /* Use 100% of the container's width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 100%; /* Ensure it does not exceed the container's height */
+    mix-blend-mode: lighten;
+}
+
+
+
+
+
+    
+
+    
+    
+    </style>
+</head>
+<body>
+        <a href="../index.html">
+            <img src="../index/images/ARROW 1.png" alt="back arrow" class="backImg" >
+        </a>
+    
+    <img src="images/my_eyes_open.png" alt="sketch of me" class="drawing">
+    <img src="images/WHATSPOCKETS 1.jpg" alt="what's in alec's pockets?" class="whatsinpockets">
+    <img src="images/pocketcontents.png" alt="a ruble, a guitar pick, a meat raffle ticket, peppers, old ID, a Chinese fortune" class="pocketcontents" id="pocketcontents" style="display: none;">
+    <div class="imageSet">
+        <img class="AreYourQs" src="images/Have all your Qs.jpg" alt="Have all your questiosn been answered?">
+        <div class="Yes"></div>
+        <div class="No"></div>
+    </div>
+
+    <div class="imageSetSecond" style="display: none;">
+        <div class="Rightthisway"></div>
+        <div class="guidehand"></div>
+        <a href="../eels/eels.html"><div class="door"></div></a> <!-- New third image -->
+    </div>
+
+    <div class="backyougo" style="display: none;">
+        <img src="images/back you go.jpg" alt="Back you go">
+    </div>
+    
+    
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const drawingImage = document.querySelector('.drawing');
+            const whatsInPocketsImage = document.querySelector('.whatsinpockets');
+            const pocketContentsImage = document.querySelector('.pocketcontents');
+            const imageSetDiv = document.querySelector('.imageSet');
+            const secondImageSet = document.querySelector('.imageSetSecond');
+            const noButton = document.querySelector('.No'); // Reference to the 'No' button in the first image set
+            const yesButton = document.querySelector('.Yes'); // Reference to the 'Yes' button in the first image set
+            const backYouGo = document.querySelector('.backyougo'); // Reference to the 'back you go' image
+        
+            function blink() {
+                drawingImage.src = "images/my_eyes_closed.png";
+                setTimeout(() => {
+                    drawingImage.src = "images/my_eyes_open.png";
+                    if (Math.random() < 0.3) {
+                        setTimeout(blink, 100);
+                    }
+                }, 160);
+            }
+        
+            setTimeout(() => {
+                blink();
+                setInterval(blink, Math.random() * 4000 + 1000);
+            }, 400);
+        
+            whatsInPocketsImage.addEventListener('mouseenter', () => {
+                whatsInPocketsImage.src = whatsInPocketsImage.src.replace('1.jpg', '2.jpg');
+            });
+        
+            whatsInPocketsImage.addEventListener('mouseleave', () => {
+                whatsInPocketsImage.src = whatsInPocketsImage.src.replace('2.jpg', '1.jpg');
+            });
+        
+            whatsInPocketsImage.addEventListener('click', () => {
+                console.log('whatsInPockets clicked, hiding and showing pocketContents');
+                whatsInPocketsImage.style.display = 'none';
+                pocketContentsImage.style.display = 'block';
+            });
+        
+            pocketContentsImage.addEventListener('click', () => {
+                console.log('pocketContents clicked, hiding and showing imageSet');
+                pocketContentsImage.style.display = 'none';
+                imageSetDiv.style.display = 'block';
+            });
+        
+            noButton.addEventListener('click', () => {
+                console.log('No clicked, hiding first imageSet and showing second imageSet');
+                imageSetDiv.style.display = 'none';
+                drawingImage.style.display = 'none';
+                secondImageSet.style.display = 'block';
+            });
+        
+            yesButton.addEventListener('click', () => {
+                console.log('Yes clicked, hiding all and showing back you go');
+                imageSetDiv.style.display = 'none';
+                secondImageSet.style.display = 'none';
+                drawingImage.style.display = 'none';
+                backYouGo.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 1000);
+            });
+        });
+        </script>
+        
+</body>
+</html>

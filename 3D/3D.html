@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <link rel="stylesheet" href="./my_website.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="images/paper_background_3D.jpg" as="image">
+
+    <title>Alec's 3D stuff</title>
+    <style>
+        body, html {
+            background-color: black;
+            background-image: url("images/paper_background_3D.jpg"); 
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            margin: 0; 
+            padding: 0;
+            overflow: hidden;
+
+
+        }
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 1300px;
+    position: relative; /* Ensure it's relative for positioning children */
+    top: 80px; /* Adjust this value to move the image lower */
+}
+
+.modal-nav {
+    text-align: center; /* Centers the navigation buttons under the image */
+    position: absolute; /* Position the nav relative to the modal-content */
+    width: 100%; /* Extend the navigation bar across the full width of the modal-content */
+    top: 90%; /* Position it just below the image */
+    transform: translateY(-50%); /* Adjust this value to fine-tune vertical position */
+}
+
+.modal-nav button {
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    width: 50px;  /* Set a specific width */
+    height: 50px; /* Set a specific height */
+    background-color: transparent; /* Remove any default background */
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block; /* Ensure they are properly inline */
+    margin-right: 30px; /* Add margin to the right of each button */
+    mix-blend-mode: lighten;
+}
+
+.modal-nav button:last-child {
+    margin-right: 0; /* Remove margin from the last button to avoid extra spacing at the end */
+}
+
+
+.modal-prev {
+    background-image: url("images/back1.png");
+    background-size: cover; /* Cover the button area completely */
+}
+
+.modal-prev:hover{
+    background-image: url("images/back2.png")
+}
+
+
+.modal-next {
+    background-image: url("images/forward1.png");
+    background-size: cover; /* Cover the button area completely */
+}
+
+.modal-next:hover{
+    background-image: url("images/forward2.png")
+
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    width: 70px;  /* Make sure this is large enough to display your image */
+    height: 70px;  /* Make sure this is large enough to display your image */
+    cursor: pointer;
+    background-image: url("images/X1.png");  /* Confirm this is the correct path */
+    background-size: cover;  /* This will fill the element area with the image */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.close:hover{
+    background-image: url("images/X2.png");
+}
+
+#roomContainer {
+    position: relative; /* Necessary for positioning ForMK absolutely within it */
+    width: 30%; /* Retain the original size of the thumbnail */
+    min-width: 400px; /* Minimum width */
+    left: 15%; /* Adjust based on layout */
+    top: 17%; /* Adjust based on layout */
+    height: auto; /* Adjusts height based on content */
+}
+
+#roomproj {
+    position: relative; /* Changed from absolute to relative */
+    width: 100%; /* Width relative to its container, roomContainer */
+    height: auto;
+    left: 0; /* No left offset */
+    top: 0; /* No top offset */
+}
+
+#ForMK {
+    position: absolute; /* Positioned absolutely within roomContainer */
+    top: 100%; /* Position below roomproj, adjust percentage as needed */
+    left: 10%; /* Align left with roomproj */
+    width: 100%; /* Match the width of roomproj */
+    min-width: 300px; /* Minimum width */
+    mix-blend-mode: lighten;
+    z-index: 10; /* Ensure it is above other elements */
+    transform: scale(1.0); /* Adjust scale as needed */
+    rotate: 2deg;
+}
+
+
+
+#roomproj:hover, #guitarproj:hover {
+    transform: scale(1.03); /* Scales up the image by 5% */
+    rotate: 1deg;
+}
+
+#guitarContainer {
+    position: relative; /* Necessary for positioning ForGuitar absolutely within it */
+    width: 30%; /* Retain the original size of the thumbnail */
+    left: calc(80% - 25vw); /* Dynamically adjust left positioning */
+    top: calc(30% - 10vw); /* Adjust top based on layout and viewport width */
+    min-width: 400px; /* Minimum width to ensure it doesn't get too small */
+    height: auto; /* Adjusts height based on content */
+}
+
+
+#guitarproj {
+    position: relative; /* Changed from absolute to relative */
+    width: 100%; /* Width relative to its container, guitarContainer */
+    height: auto;
+    left: 0; /* No left offset */
+    top: 0; /* No top offset */
+}
+
+#ForGuitar {
+    position: absolute; /* Positioned absolutely within guitarContainer */
+    top: 90%; /* Position below guitarproj, adjust percentage as needed */
+    left: 20%; /* Align left with guitarproj */
+    width: 7%; /* Match the width of guitarproj */
+    min-width: 280px; /* Minimum width */
+    mix-blend-mode: lighten;
+    z-index: 10; /* Ensure it is above other elements */
+    transform: scale(1.0); /* Adjust scale as needed */
+}
+
+#guitarproj:hover {
+    transform: scale(1.03); /* Scales up the image by 5% */
+    rotate: 1deg;
+}
+
+@media (max-width: 800px) {
+    #guitarContainer {
+        left: calc(50% - 200px); /* Adjust this value to ensure it doesn't move too far on smaller screens */
+    }
+}
+        
+
+    </style>
+</head>
+<body>
+
+    <div class="back">
+        <a href="javascript:history.back()">
+            <img src="images/ARROW 1.png" alt="back arrow" class="back">
+        </a>
+    </div>
+
+    <div id="roomContainer">
+        <img id="roomproj" src="images/thumbnail_roomproj.png" alt="thumbnail for 3d project">
+        <img id="ForMK" src="images/ForMK.jpg" alt="3d interior for maria khouri interiors">
+    </div>
+
+    <div id="guitarContainer">
+        <img id="guitarproj" src="images/thumbnail_guitarproj.png" alt="thumbnail for 3d project">
+        <img id="ForGuitar" src="images/FenderMustang.jpg" alt="additional image for guitar project" >
+    </div>
+    
+<!-- Modal Structure -->
+<div id="myModal" class="modal">
+    <span class="close" aria-label="Close"></span>
+
+    <img class="modal-content" id="img01">
+
+    <div class="modal-nav">
+        <button id="prev" class="modal-prev"></button>
+        <button id="next" class="modal-next"></button>
+    </div>
+</div>
+
+
+
+<script>
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+    var currentImageSet = [];
+    var currentImageIndex = 0;
+
+    var roomProjImages = [
+        "images/corner.png",
+        "images/toilet_view.png",
+        "images/window.png"
+    ];
+
+    var guitarProjImages = [
+        "images/guitar_pickguard_shot_1.jpg",
+        "images/guitar_bodyshot_1.jpg",
+    ];
+
+    document.getElementById('roomproj').onclick = function() {
+        currentImageSet = roomProjImages;
+        currentImageIndex = 0;
+        modal.style.display = "block";
+        modalImg.src = currentImageSet[currentImageIndex];
+    };
+
+    document.getElementById('guitarproj').onclick = function() {
+        currentImageSet = guitarProjImages;
+        currentImageIndex = 0;
+        modal.style.display = "block";
+        modalImg.src = currentImageSet[currentImageIndex];
+    };
+
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    document.getElementById("prev").onclick = function() {
+        if (currentImageIndex > 0) {
+            currentImageIndex--;
+            modalImg.src = currentImageSet[currentImageIndex];
+        }
+    };
+
+    document.getElementById("next").onclick = function() {
+        if (currentImageIndex < currentImageSet.length - 1) {
+            currentImageIndex++;
+            modalImg.src = currentImageSet[currentImageIndex];
+        }
+    };
+</script>
+
+    
+</body>
+</html>

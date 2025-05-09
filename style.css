@@ -1,0 +1,102 @@
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* === replace your existing rules with this === */
+
+.sliding-container{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -150%);
+  animation:slideInToCenter 1s forwards;
+
+  width:320px;       /* powers the Cmd-+ “zoom” effect                 */
+  aspect-ratio: 813/1134;
+
+  
+}
+
+.sliding-container::-webkit-scrollbar{display:none;}
+
+.sliding-image{
+  width:100%;
+  height:auto;
+}
+
+
+/* overwrite the whole rule */
+.handwriting{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);   /* keeps each note centred */
+
+  /* natural size ↓ */
+  width:100%;                       /* ← no scaling - uses file’s own width  */
+  height:auto;
+
+  scale: 29%;
+
+  /* optional safety net – prevents a giant file from spilling everywhere   */
+  max-width:100%;                   /* (remove if you really want zero limit)*/
+
+  mix-blend-mode:screen;
+  z-index:1;
+}
+
+/* 
+.hotspot {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.5); 
+  cursor: pointer; 
+  z-index: 2; 
+} */
+
+
+
+/* 
+.inverted {
+  filter: invert(1);
+} */
+
+
+
+.backImg {
+  position: absolute;
+  top: 1%;
+  left: 2%;
+  opacity: 100%;
+  width: 65px;
+  height: auto;
+  z-index: 300;
+}
+
+.backImg:hover {
+  content: url("index/images/ARROW\ 2.png");
+}
+
+
+
+
+
+
+
+
+@keyframes slideInToCenter {
+  0% {
+    transform: translate(-50%, -150%); 
+  }
+  100% {
+    transform: translate(-50%, -50%); 
+  }
+}
+
+
+
+
