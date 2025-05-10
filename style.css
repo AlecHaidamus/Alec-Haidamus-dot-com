@@ -38,10 +38,10 @@ body, html {
   transform:translate(-50%,-50%);   /* keeps each note centred */
 
   /* natural size ↓ */
-  width:100%;                       /* ← no scaling - uses file’s own width  */
+  width:auto;                       /* ← no scaling - uses file’s own width  */
   height:auto;
 
-  scale: 29%;
+  scale: 39%;
 
   /* optional safety net – prevents a giant file from spilling everywhere   */
   max-width:100%;                   /* (remove if you really want zero limit)*/
