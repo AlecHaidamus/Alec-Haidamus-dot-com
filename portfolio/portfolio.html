@@ -8,174 +8,96 @@
   <link rel="preload" href="images/paper_background_portfolio.jpg" as="image">
   
   <style>
-    /* ======================  GLOBAL LAYOUT  ====================== */
-    body, html {
-      margin: 0; padding: 0;
-      width: 100%; height: 100%;
-      background: black url("images/paper_background_portfolio.jpg") center/cover fixed;
-      cursor: url(images/), auto;
-      overflow: hidden;
-    }
-
-    /* ======================  THUMBNAILS  ========================= */
-    .thumbnail {
-      --drift-x: 0px;
-      --drift-y: 0px;
-      --drift-rot: 0deg;
-      position: relative;
-      display: block;
-      max-width: 25%;
-      margin-top: -1rem;
-      will-change: transform;
-      transition: transform 1s ease-out;
-      transform:
-        translate(var(--drift-x), var(--drift-y))
-        rotate(var(--drift-rot));
-    }
-    .thumbnail img {
-      display: block;
-      width: 100%;
-      height: auto;
-      filter: drop-shadow(10px 7px 10px #000);
-    }
-
-    #scroll-container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow-y: scroll;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      -webkit-overflow-scrolling: touch;
-      padding: 50vh 0 20vh;
-    }
-    #scroll-container::-webkit-scrollbar { display: none; }
-    #scroll-container::after { content: ""; display: block; height: 70vh; }
-
-    /* horizontal placement of each thumb */
-    #dreamscape { left: 15vw; }
-    #forest    { left: 60vw; }
-    #sound     { left:  8vw; }
-    #particle  { left:   5%; }
-    #cake      { left: 12vw; }
-    #codeweb   { left: 60vw; }
-    #jordan    { left: 35vw; }
-    #musicvid  { left: 45vw; }
-    #shortwave { left: 20vw; }
-    #guitar    { left: 60vw; }
-    #growth    { left: 15vw; }
-    #jelly     { left: 42vw; }
-
-    /* ======================  MODAL =============================== */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      inset: 0;
-      background-color: rgba(0,0,0,0.9);
-      overflow: auto;
-    }
-    .modal-content {
-      display: block;
-      margin: 60px auto 10px;
-      max-width: 80vw;          /* ← back to original width */
-      max-height: 70vh;
-    }
-
-    iframe.modal-content {
-      width: 80vw;
-      max-width: 960px;
-      aspect-ratio: 16 / 9;
-      height: auto;
-      border: 0;
-      background: #000;
-    }
-
-    /* --------  navigation arrows  -------- */
-    .modal-nav button {
-      background-color: transparent;
-      border: none;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      cursor: pointer;
-      width: 60px; height: 60px;
-      mix-blend-mode: normal;
-    }
-    .modal-prev  { background-image: url("images/back1.png"); }
-    .modal-next  { background-image: url("images/forward1.png"); }
-    .modal-prev:hover  { background-image: url("images/back2.png"); }
-    .modal-next:hover  { background-image: url("images/forward2.png"); }
-
-    
-    @media (min-width: 600px) {
-      .modal-nav {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        display: block;
-      }
-      .modal-nav button {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        pointer-events: auto;
-        z-index: 2000;
-      }
-      .modal-prev { left: 2vw; }
-      .modal-next { right: 2vw; }
-    }
-
-    .modal-blurb {
-      display: block;
-      width: 80vw;
-      max-width: 600px;
-      height: auto;
-      margin: 12px auto 0;
-      filter: drop-shadow(4px 4px 8px #000);
-      object-fit: contain;
-    }
-
-    .close {
-      position: absolute;
-      top: 3%; right: 2%;
-      width: 70px; height: 70px;
-      cursor: pointer;
-      background: url("images/X1.png") center/cover no-repeat;
-    }
-    .close:hover { background-image: url("images/X2.png"); }
-
-    /* ======================  MEDIUM PREVIEW  ==================== */
-    #mediumPreview {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 120px;
-      pointer-events: none;
-      z-index: 4000;
-      opacity: 0;
-      transition: opacity .15s ease-out;
-      filter: drop-shadow(4px 4px 8px #000);
-    }
-
-    #galleryWrap { position: relative; }
-
-#galleryWrap .modal-nav {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* ──────────  GLOBAL  ────────── */
+html,body{
+  margin:0;padding:0;width:100%;height:100%;
+  background:black url("images/paper_background_portfolio.jpg") center/cover fixed;
+  cursor:url(images/),auto;overflow:hidden;
 }
-#galleryWrap .modal-nav button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: auto;
-  z-index: 2000;
-}
-#galleryWrap .modal-prev { left: 2vw; }
-#galleryWrap .modal-next { right: 2vw; }
 
-  </style>
+/* ──────────  THUMBNAILS  ────── */
+.thumbnail{
+  --drift-x:0px;--drift-y:0px;--drift-rot:0deg;
+  position:relative;display:block;max-width:25%;margin-top:-1rem;
+  will-change:transform;transition:transform 1s ease-out;
+  transform:translate(var(--drift-x),var(--drift-y)) rotate(var(--drift-rot));
+}
+.thumbnail img{width:100%;height:auto;display:block;filter:drop-shadow(10px 7px 10px #000);}
+
+#scroll-container{
+  position:relative;width:100%;height:100vh;overflow-y:scroll;
+  padding:50vh 0 20vh;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+#scroll-container::-webkit-scrollbar{display:none;}
+#scroll-container::after{content:"";display:block;height:70vh;}
+
+#dreamscape{left:15vw;}#forest{left:60vw;}#sound{left:8vw;}
+#particle{left:5%;}#cake{left:12vw;}#codeweb{left:60vw;}
+#jordan{left:35vw;}#musicvid{left:45vw;}#shortwave{left:20vw;}
+#guitar{left:60vw;}#growth{left:15vw;}#jelly{left:42vw;}
+
+/* ──────────  MODAL SHELL  ───── */
+.modal{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,.9);overflow:auto;
+}
+.modal-content{margin:60px auto 10px;max-width:80vw;max-height:70vh;display:block;}
+iframe.modal-content{
+  width:80vw;max-width:960px;aspect-ratio:16/9;height:auto;border:0;background:#000;
+}
+
+.close{
+  position:absolute;top:3%;right:2%;width:70px;height:70px;
+  background:url("images/X1.png") center/cover no-repeat;cursor:pointer;
+}
+.close:hover{background-image:url("images/X2.png");}
+
+/* ──────────  BLURB  ─────────── */
+.modal-blurb{
+  display:block;margin:12px auto 0;width:80vw;max-width:600px;
+  height:auto;object-fit:contain;filter:drop-shadow(4px 4px 8px rgba(0,0,0,.5));
+}
+#blurbWrap a#blurbHot{
+  position:absolute;left:23%;top:10%;width:120px;height:70px;
+}
+
+/* ──────────  GALLERY & ARROWS  ───────── */
+#galleryWrap{
+  position:relative;               /* anchor for arrows */
+  display:block;width:max-content; 
+  margin:60px auto 10px;text-align:center;
+}
+#galleryWrap .modal-nav{
+  position:absolute;inset:0;pointer-events:none;
+}
+#galleryWrap .modal-nav button{
+  position:absolute;top:50%;pointer-events:auto;
+  width:60px;height:60px;margin:0;border:none;background-size:contain;
+  background-repeat:no-repeat;background-position:center;cursor:pointer;
+  transform:translateY(-50%);
+    background-color:transparent;
+
+}
+#galleryWrap .modal-prev {background-image:url("images/back1.png"); left:-70px;}
+#galleryWrap .modal-next {background-image:url("images/forward1.png"); right:-70px;}
+#galleryWrap .modal-prev:hover{background-image:url("images/back2.png");}
+#galleryWrap .modal-next:hover{background-image:url("images/forward2.png");}
+
+@media(max-width:480px){
+  #galleryWrap .modal-nav button{width:44px;height:44px;}
+  #galleryWrap .modal-prev{left:-54px;}
+  #galleryWrap .modal-next{right:-54px;}
+}
+
+/* ──────────  MEDIUM PREVIEW  ───── */
+#mediumPreview{
+  position:fixed;top:20px;right:20px;width:120px;pointer-events:none;
+  z-index:4000;opacity:0;transition:opacity .15s ease-out;
+  filter:drop-shadow(4px 4px 8px #000);
+}
+</style>
+
 </head>
 <body>
   <img id="mediumPreview" alt="">
@@ -228,21 +150,21 @@
    <div id="myModal" class="modal">
   <span class="close" aria-label="Close"></span>
 
-  <!-- 1️⃣ video (hidden until a video-type modal opens) -->
+  <!-- 1video (hidden until  modal opens) -->
   <iframe id="vid01" class="modal-content"
           allowfullscreen style="display:none;"></iframe>
 
-  <!-- 2️⃣ gallery still (hidden unless a gallery is active) -->
-  <!-- 2️⃣  still-gallery wrapper  (hidden until a gallery is opened) -->
+  <!-- gallery still (hidden unless gallery is active) -->
+  <!-- 2️still-gallery wrapper  (hidden until a gallery is opened) -->
 <div id="galleryWrap"
      style="display:none; position:relative; max-width:80vw;
-            margin:60px auto 10px;   /* centers wrapper */
-            text-align:center; width:100%;">
+            margin:60px auto 10px; text-align:center;">
 
-  <!-- the still image that changes with ← / → -->
+
+  <!-- still gallery images ← / → -->
 <img id="img01" class="modal-content" alt="gallery still">
 
-  <!-- arrows now live INSIDE the wrapper so they stay on the still -->
+  <!-- arrows live inside wrapper so they dont escape -->
   <div class="modal-nav">
     <button id="prev" class="modal-prev"  aria-label="Previous"></button>
     <button id="next" class="modal-next"  aria-label="Next"></button>
@@ -250,9 +172,13 @@
 </div>
 
 
-  <!-- 4️⃣ blurb (hidden if no blurb) -->
-  <img id="blurbImg" class="modal-blurb" alt="" style="display:none;">
+<div id="blurbWrap" style="display:none; margin:12px auto 0; width:max-content; position:relative;">
+  <img id="blurbImg" class="modal-blurb" alt="">
+  <a id="blurbHot" href="https://alechaidamus.github.io/Creative_Coding_Website/"
+     target="_blank" aria-label="Visit Creative-Coding site"></a>
 </div>
+
+
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -287,7 +213,11 @@
           thumb.style.setProperty('--drift-rot', angle + 'deg');
         });
 const imgSlot    = document.getElementById('img01');
-const galleryWrap = document.getElementById('galleryWrap');       // NEW
+const galleryWrap = document.getElementById('galleryWrap');       
+const blurbHot   = document.getElementById('blurbHot');   
+const blurbWrap  = document.getElementById('blurbWrap');  
+
+
 
 
         ticking = false;
@@ -311,199 +241,148 @@ const galleryWrap = document.getElementById('galleryWrap');       // NEW
     });
   </script>
   <script>
-/* ─────────────  DOM cache  ───────────── */
-const modal       = document.getElementById('myModal');
-const vidSlot     = document.getElementById('vid01');
-const imgSlot     = document.getElementById('img01');
-const galleryWrap = document.getElementById('galleryWrap');   // NEW
-const blurbSlot   = document.getElementById('blurbImg');
-const btnPrev     = document.getElementById('prev');
-const btnNext     = document.getElementById('next');
-const btnClose    = document.querySelector('.close');
+/* ─────────  one-time DOM cache  ───────── */
+const modal   = document.getElementById('myModal');
+const vid     = document.getElementById('vid01');
+const img     = document.getElementById('img01');
+const gallery = document.getElementById('galleryWrap');
+const blurbW  = document.getElementById('blurbWrap');
+const blurb   = document.getElementById('blurbImg');
+const hot     = document.getElementById('blurbHot');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+const closeBtn= document.querySelector('.close');
 
-/* ─────────────  runtime state  ───────────── */
-let currentSet = [];      // array of still URLs
-let currentIdx = 0;       // current still index
-let isGallery  = false;   // true when a still gallery is active
+let stills = [];           //  gallery images
+let idx    = 0;           
 
-/* ─────────────  blurbs  ───────────── */
-const blurbFor = {
-  growth     : 'images/blurbs/growth.png',
-  jordan     : 'images/blurbs/jordan.png',
-  musicvid   : 'images/blurbs/musicvid.png',
-  guitar     : 'images/blurbs/guitar.png',
-  forest     : 'images/blurbs/forest.png',
-  dreamscape : 'images/blurbs/dream.png',
-  particle   : 'images/blurbs/particle.png',
-  shortwave  : 'images/blurbs/shortwave.png',
-  jelly      : 'images/blurbs/jelly.png'
-};
-function setBlurb(el){
-  const src = blurbFor[el.id];
-  blurbSlot.style.display = src ? '' : 'none';
-  if (src) blurbSlot.src = src;
+/* ─────────  helper: nav arrows  ───── */
+function updateArrows(){
+  const show = stills.length > 1;
+  prevBtn.style.visibility = show && idx > 0              ? 'visible':'hidden';
+  nextBtn.style.visibility = show && idx < stills.length-1? 'visible':'hidden';
 }
 
-/* ─────────────  nav helper  ───────────── */
-function updateNav(){
-  btnPrev.style.visibility = isGallery && currentIdx > 0
-    ? 'visible' : 'hidden';
-  btnNext.style.visibility = isGallery && currentIdx < currentSet.length - 1
-    ? 'visible' : 'hidden';
-}
-
-/* ─────────────  openers  ───────────── */
-function openImageModal(el, stills){
-  el.addEventListener('click', e=>{
-    e.preventDefault();
-
-    isGallery  = true;
-    currentSet = stills;
-    currentIdx = 0;
-
-    imgSlot.src = stills[0];
-    imgSlot.style.display = '';
-    galleryWrap.style.display = '';     // show still + arrows
-    vidSlot.style.display = 'none';
-
-    setBlurb(el);
-    updateNav();
-    modal.style.display = 'block';
-  });
-}
-
-function openVideoModal(el, ytID){
-  const url = `https://www.youtube.com/embed/${ytID}?rel=0&autoplay=1&quality=1080p`;
-  el.addEventListener('click', e=>{
-    e.preventDefault();
-
-    isGallery = false;
-
-    vidSlot.src = url;
-    vidSlot.style.display = '';
-    imgSlot.style.display = 'none';
-    galleryWrap.style.display = 'none'; // hide arrows
-
-    setBlurb(el);
-    updateNav();
-    modal.style.display = 'block';
-  });
-}
-
-function openVimeoModal(el, vimeoID){
-  const url = `https://player.vimeo.com/video/${vimeoID}?badge=0&autopause=0&player_id=0`;
-  el.addEventListener('click', e=>{
-    e.preventDefault();
-
-    isGallery = false;
-
-    vidSlot.src = url;
-    vidSlot.style.display = '';
-    imgSlot.style.display = 'none';
-    galleryWrap.style.display = 'none';
-
-    setBlurb(el);
-    updateNav();
-    modal.style.display = 'block';
-  });
-}
-
-/* video + still gallery */
-function openVimeoWithGallery(el, vimeoID, stills){
-  const url = `https://player.vimeo.com/video/${vimeoID}?badge=0&autopause=0&player_id=0`;
-  el.addEventListener('click', e=>{
-    e.preventDefault();
-
-    isGallery  = true;
-    currentSet = stills;
-    currentIdx = 0;
-
-    vidSlot.src = url;
-    vidSlot.style.display = '';
-
-    imgSlot.src = stills[0];
-    imgSlot.style.display = '';
-    galleryWrap.style.display = '';
-
-    setBlurb(el);
-    updateNav();
-    modal.style.display = 'block';
-  });
-}
-
-/* ─────────────  nav + close  ───────────── */
-btnPrev.onclick = () => {
-  if (isGallery && currentIdx > 0){
-    imgSlot.src = currentSet[--currentIdx];
-    updateNav();
-  }
-};
-btnNext.onclick = () => {
-  if (isGallery && currentIdx < currentSet.length - 1){
-    imgSlot.src = currentSet[++currentIdx];
-    updateNav();
-  }
-};
-btnClose.onclick = () => {
+/* ─────────  close modal  ─────────── */
+function closeModal(){
   modal.style.display = 'none';
-  vidSlot.src = '';                // stop video
-  imgSlot.style.display = 'none';
-  galleryWrap.style.display = 'none';
-  blurbSlot.style.display = 'none';
-};
+  vid.src = '';                          // stop any video
+  gallery.style.display = 'none';
+  blurbW.style.display  = 'none';
+  hot.style.display     = 'none';
+}
+closeBtn.onclick = closeModal;
 
-/* ─────────────  registrations  ───────────── */
-openImageModal(
-  document.getElementById('guitar'),
-  ['images/Guitar/guitar_pickguard_shot_1.jpg',
-   'images/Guitar/guitar_bodyshot_1.jpg']
-);
+/* ─────────  arrow events  ─────────── */
+prevBtn.onclick = ()=>{ if(idx>0){ img.src = stills[--idx]; updateArrows(); }};
+nextBtn.onclick = ()=>{ if(idx<stills.length-1){ img.src = stills[++idx]; updateArrows(); }};
 
-openImageModal(
-  document.getElementById('jordan'),
-  ['images/Jordan/NorthEast.jpg',
-   'images/Jordan/SouthEast.jpg',
-   'images/Jordan/SouthWest.jpg',
-   'images/Jordan/SouthWest2.jpg',
-   'images/Jordan/NorthEast.jpg']
-);
+/* ─────────  how to register a thumbnail  ─────────
+   cfg = {
+     video : {type:'yt'|'vimeo', id:'abc'},   // optional
+     images: ['a.jpg','b.jpg'],               // optional
+     blurb : 'images/blurbs/xxx.png',         // optional
+     link  : 'https://…'                      // optional (hotspot)
+   }
+*/
+function registerModal(thumbId, cfg){
+  const el = document.getElementById(thumbId);
+  if(!el) return;
 
-openVideoModal(
-  document.getElementById('musicvid'),
-  '7ZfvmJdgKVY'
-);
+  el.addEventListener('click', e=>{
+    e.preventDefault();
 
-openVimeoModal(  document.getElementById('particle'),  '941872335');
-openVimeoModal(  document.getElementById('shortwave'), '942035395');
-openVimeoModal(  document.getElementById('jelly'),     '941910618');
-openVimeoModal(  document.getElementById('growth'),    '1082888242');
+    /* video ───────────────── */
+    if(cfg.video){
+      const src = cfg.video.type==='yt'
+        ? `https://www.youtube.com/embed/${cfg.video.id}?rel=0&autoplay=1&quality=1080p`
+        : `https://player.vimeo.com/video/${cfg.video.id}?badge=0&autopause=0&player_id=0`;
+      vid.src   = src;
+      vid.style.display = '';
+    }else{
+      vid.style.display = 'none';
+      vid.src = '';
+    }
 
-/* Forest: video + stills */
-openVimeoWithGallery(
-  document.getElementById('forest'),
-  '1083059484',              // Vimeo ID
-  [
-    'images/forest/shot1.jpg',
-    'images/forest/shot2.jpg',
-    'images/forest/shot3.jpg'
-  ]
-);
+    /* still gallery ───────── */
+    stills = cfg.images || [];
+    if(stills.length){
+      idx = 0;
+      img.src = stills[0];
+      img.style.display  = '';
+      gallery.style.display = '';
+    }else{
+      gallery.style.display = 'none';
+      img.style.display     = 'none';
+    }
+    updateArrows();
 
-/* Dreamscape: video + stills */
-openVimeoWithGallery(
-  document.getElementById('dreamscape'),
-  '1083062163',              // Vimeo ID
-  [
-    'images/dreamsc/dreamscapeshot1.jpg',
-    'images/dreamsc/dreamscapeshot2.jpg',
-    'images/dreamsc/dreamscapeshot3.jpg',
-    'images/dreamsc/dreamscapeshot4.jpg',
-    'images/dreamsc/dreamscapeshot5.jpg',
-    'images/dreamsc/dreamscapeshot6.jpg',
-    'images/dreamsc/dreamscapeshot7.jpg'
-  ]
-);
+    /* blurb + hotspot ─────── */
+    if(cfg.blurb){
+      blurb.src = cfg.blurb;
+      blurbW.style.display = '';
+      if(cfg.link){
+        hot.href         = cfg.link;
+        hot.style.display= '';
+      }else hot.style.display='none';
+    }else{
+      blurbW.style.display = 'none';
+      hot.style.display    = 'none';
+    }
+
+    /* open modal */
+    modal.style.display = 'block';
+  });
+}
+
+/* ─────────  registrations  ───────── */
+registerModal('guitar', {
+  images:['images/Guitar/guitar_pickguard_shot_1.jpg',
+          'images/Guitar/guitar_bodyshot_1.jpg'],
+  blurb :'images/blurbs/guitar.png'
+});
+
+registerModal('jordan', {
+  images:['images/Jordan/NorthEast.jpg',
+          'images/Jordan/SouthEast.jpg',
+          'images/Jordan/SouthWest.jpg',
+          'images/Jordan/SouthWest2.jpg',
+          'images/Jordan/NorthEast.jpg'],
+  blurb :'images/blurbs/jordan.png'
+});
+
+registerModal('musicvid', {
+  video :{type:'yt', id:'7ZfvmJdgKVY'},
+  blurb :'images/blurbs/musicvid.png'
+});
+
+registerModal('codeweb', {
+  blurb :'images/blurbs/codeweb.png',
+  link  :'https://alechaidamus.github.io/Creative_Coding_Website/'
+});
+
+registerModal('particle',  {video:{type:'vimeo', id:'941872335'}, blurb:'images/blurbs/particle.png'});
+registerModal('shortwave', {video:{type:'vimeo', id:'942035395'}, blurb:'images/blurbs/shortwave.png'});
+registerModal('jelly',     {video:{type:'vimeo', id:'941910618'}, blurb:'images/blurbs/jelly.png'});
+registerModal('growth',    {video:{type:'vimeo', id:'1082888242'},blurb:'images/blurbs/growth.png'});
+
+/* Forest  = video + stills + blurb */
+registerModal('forest',{
+  video :{type:'vimeo', id:'1083059484'},
+  images:['images/forest/shot1.jpg','images/forest/shot2.jpg','images/forest/shot3.jpg'],
+  blurb :'images/blurbs/forest.png'
+});
+
+registerModal('dreamscape',{
+  video :{type:'vimeo', id:'1083062163'},
+  images:['images/dreamsc/dreamscapeshot1.jpg','images/dreamsc/dreamscapeshot2.jpg',
+          'images/dreamsc/dreamscapeshot3.jpg','images/dreamsc/dreamscapeshot4.jpg',
+          'images/dreamsc/dreamscapeshot5.jpg','images/dreamsc/dreamscapeshot6.jpg',
+          'images/dreamsc/dreamscapeshot7.jpg'],
+  blurb :'images/blurbs/dream.png'
+});
 </script>
+
 
 
 <script>
