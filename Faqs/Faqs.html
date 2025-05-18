@@ -199,14 +199,15 @@
     background-image: url('images/guidehand.jpg'); 
     width: 30%;
     min-width: 300px;
-    top: 30%;
+    top: 35%;
 
 }
 
 .door {
-    top: 45%;
+    top: 55%;
     left: 85%; /* Adjust as needed */
     width: 8.5%; /* Default width */
+    min-width: 90px;
     height: 50%; /* Default height */
     background-image: url("images/door_closed.jpg"); /* Default image for "door" */
     background-size: contain; /* Adjust background size to cover the area of the div */
@@ -264,11 +265,12 @@
         <div class="Yes"></div>
         <div class="No"></div>
     </div>
+    <a href="..//lunar lander/lunarlander.html"><img src="../lunar lander/images/lander.jpg" class="lander"alt="lunar lander" style="position: fixed;top: 5vh; right: 5vw; width: 3vw; min-width: 40px; mix-blend-mode: screen; display: none;" ></a>
 
     <div class="imageSetSecond" style="display: none;">
         <div class="Rightthisway"></div>
         <div class="guidehand"></div>
-        <a href="../eels/eels.html"><div class="door"></div></a> <!-- New third image -->
+        <a href="../eels/eels.html"><div class="door"></div></a> 
     </div>
 
     <div class="backyougo" style="display: none;">
@@ -285,6 +287,7 @@
             const pocketContentsImage = document.querySelector('.pocketcontents');
             const imageSetDiv = document.querySelector('.imageSet');
             const secondImageSet = document.querySelector('.imageSetSecond');
+            const lander = document.querySelector('.lander');
             const noButton = document.querySelector('.No'); // Reference to the 'No' button in the first image set
             const yesButton = document.querySelector('.Yes'); // Reference to the 'Yes' button in the first image set
             const backYouGo = document.querySelector('.backyougo'); // Reference to the 'back you go' image
@@ -297,6 +300,9 @@
                         setTimeout(blink, 100);
                     }
                 }, 160);
+            }
+            function show(thing){
+                thing.style.display = "block"
             }
         
             setTimeout(() => {
@@ -313,26 +319,30 @@
             });
         
             whatsInPocketsImage.addEventListener('click', () => {
-                console.log('whatsInPockets clicked, hiding and showing pocketContents');
+                // console.log('whatsInPockets clicked, hiding and showing pocketContents');
                 whatsInPocketsImage.style.display = 'none';
                 pocketContentsImage.style.display = 'block';
             });
         
             pocketContentsImage.addEventListener('click', () => {
-                console.log('pocketContents clicked, hiding and showing imageSet');
+                // console.log('pocketContents clicked, hiding and showing imageSet');
                 pocketContentsImage.style.display = 'none';
                 imageSetDiv.style.display = 'block';
             });
         
             noButton.addEventListener('click', () => {
-                console.log('No clicked, hiding first imageSet and showing second imageSet');
+                // console.log('No clicked, hiding first imageSet and showing second imageSet');
                 imageSetDiv.style.display = 'none';
                 drawingImage.style.display = 'none';
                 secondImageSet.style.display = 'block';
+
+                setTimeout(() => {show(lander)}, 500);
+
+               
             });
         
             yesButton.addEventListener('click', () => {
-                console.log('Yes clicked, hiding all and showing back you go');
+                // console.log('Yes clicked, hiding all and showing back you go');
                 imageSetDiv.style.display = 'none';
                 secondImageSet.style.display = 'none';
                 drawingImage.style.display = 'none';
