@@ -18,7 +18,11 @@ html,body{
 /* ──────────  THUMBNAILS  ────── */
 .thumbnail{
   --drift-x:0px;--drift-y:0px;--drift-rot:0deg;
-  position:relative;display:block;max-width:25%;margin-top:-1rem;
+  position:relative;
+  display:block;
+  width:25%;
+  min-width: 220px;
+  margin-top:-1rem;
   will-change:transform;transition:transform 1s ease-out;
   transform:translate(var(--drift-x),var(--drift-y)) rotate(var(--drift-rot));
 }
@@ -31,9 +35,9 @@ html,body{
 }
 #scroll-container::-webkit-scrollbar{display:none;}
 #scroll-container::after{content:"";display:block;height:70vh;}
-
 #dreamscape{left:15vw;}#forest{left:60vw;}#sound{left:8vw;}
-#particle{left:5%;}#cake{left:12vw;}#codeweb{left:60vw;}
+#particle{left:5%;}#cake{left:12vw;}
+#codeweb{left:55vw;}
 #jordan{left:35vw;}#musicvid{left:45vw;}#shortwave{left:20vw;}
 #guitar{left:60vw;}#growth{left:15vw;}#jelly{left:42vw;}
 
@@ -48,14 +52,14 @@ iframe.modal-content{
 }
 
 .close{
-  position:absolute;top:3%;right:2%;width:70px;height:70px;
+  position:absolute;top:3%;right:2%;width:70px;height:70px; z-index: 10000;
   background:url("images/X1.png") center/cover no-repeat;cursor:pointer;
 }
 .close:hover{background-image:url("images/X2.png");}
 
 /* ──────────  BLURB  ─────────── */
 .modal-blurb{
-  display:block;margin:12px auto 0;width:80vw;max-width:600px;
+  display:block;margin:12px auto 0;width:80vw;max-width:800px;margin-top: 30px;
   height:auto;object-fit:contain;filter:drop-shadow(4px 4px 8px rgba(0,0,0,.5));
 }
 #blurbWrap a#blurbHot{
@@ -256,7 +260,7 @@ const closeBtn= document.querySelector('.close');
 let stills = [];           //  gallery images
 let idx    = 0;           
 
-/* ─────────  helper: nav arrows  ───── */
+/* ─────────  nav arrows  ───── */
 function updateArrows(){
   const show = stills.length > 1;
   prevBtn.style.visibility = show && idx > 0              ? 'visible':'hidden';
@@ -415,6 +419,20 @@ document.querySelectorAll('#scroll-container .thumbnail').forEach(thumb => {
   thumb.addEventListener('mouseleave', () => {
     preview.style.opacity = '0';
   });
+// after your touchmove listener add:
+thumb.addEventListener('touchend', () => {
+  preview.style.opacity = '0';
+});
+thumb.addEventListener('touchcancel', () => {
+  preview.style.opacity = '0';
+});
+thumb.addEventListener('pointerup', () => {
+  preview.style.opacity = '0';});
+thumb.addEventListener('pointercancel', () => {
+  preview.style.opacity = '0';});
+
+
+
 });
 
 document.getElementById('myModal')

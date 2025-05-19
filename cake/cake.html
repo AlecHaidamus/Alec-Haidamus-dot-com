@@ -15,8 +15,9 @@ body, html {
             width: 100%;
             height: 100%;
             background-size: cover;
-            background-position:center;
+            background-position:left;
             background-repeat: no-repeat;
+            background-repeat: repeat-y;
             z-index: -1;
             margin: 0; 
             padding: 0;
@@ -28,10 +29,9 @@ body, html {
             position: fixed;
             top: 12vh; 
             left: 16vw; 
-            max-width: 25%;
-            width: auto;
+            /* max-width: 25%; */
+            width: 330px;
             height: auto;
-            min-width: 330px;
             rotate: -3deg;
             mix-blend-mode: lighten;
         }
@@ -39,11 +39,9 @@ body, html {
         #cakesteps {
             position: fixed;
             top: 60vh; 
-            left: 65vw; 
-            max-width: 30%;
-            width: auto;
+            right: 8vw; 
+            width: 400px;
             height: auto;
-            min-width: 330px;
             rotate: -3deg;
             mix-blend-mode: lighten;
 
@@ -52,11 +50,9 @@ body, html {
         #cakeingredients {
             position: fixed;
             top: 45vh; 
-            left: 18vw; 
-            max-width: 30%;
-            width: auto;
+            right: 60vw; 
+            width: 400px;
             height: auto;
-            min-width: 330px;
             rotate: -3deg;
             mix-blend-mode: screen;
 
@@ -65,15 +61,51 @@ body, html {
         #handncake {
             position: fixed;
             top: 5vh; 
-            left: 65vw; 
-            max-width: 30%;
-            width: auto;
+            right: 200px; 
+            width: 450px;
             height: auto;
-            min-width: 330px;
             rotate: -3deg;
             mix-blend-mode: lighten;
+        }
+
+
+    @media (max-width:857px){
+
+        #cakeblurb{
+            left: 10vw; 
+            max-width: 70vw;
+            top: 6vh;
 
         }
+
+        #handncake{
+            right: auto;
+            top: 15vh; 
+            left: auto;
+            right: 5vw;
+            max-width: 55vw;
+
+        }
+
+        #cakeingredients{
+            top: 43vh;
+            transform: translate(-50%,0);
+            left:50%;
+            right: auto;
+            width: auto;
+            max-height: 30vh;
+            
+        }
+
+        #cakesteps{
+            top: auto;
+            bottom:5vh;
+            width: auto;
+            max-height: 20vh;
+            max-width: 90vw;
+        }
+
+    }
 
 </style>
 </head>

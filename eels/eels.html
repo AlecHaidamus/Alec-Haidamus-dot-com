@@ -13,14 +13,26 @@
     position: fixed; 
     bottom: 0;
     width: 100%;
+    mix-blend-mode: screen;
 }
+@keyframes swing {
+  0%   { transform: rotate(-5deg); }
+  50%  { transform: rotate( 5deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+
 
 .eel {
     position: relative;
     width: 100px; 
+    max-width: 10vw;
     height: auto;
     transition: transform 0.5s ease; 
+    transform-origin: bottom center;
+    /* animation: swing 3s ease-in-out infinite; */
 }
+
 
 
     body, html {
@@ -39,10 +51,10 @@
 
 
         }
-        #eel1 {scale: 200%; bottom: 10vh;}
-        #eel2 {scale: 140%; bottom: 5vh;}
-        #eel3 {scale: 95%; bottom: -5vh;}
-        #eel4 {scale: 150%; bottom: 5vh;}
+        #eel1 {scale: 150%; bottom: -10px;}
+        #eel2 {scale: 125%; bottom: -34px;}
+        #eel3 {scale: 95%; bottom: -20px;}
+        #eel4 {scale: 112%; bottom: -22px;}
 
 
         .back img {
@@ -59,12 +71,14 @@
         }
         .centered-image {
         position: fixed;
-        top: 10%;
+        bottom: 75%;
         left: 40%;
         transform: translate(-50%, -50%);
         display: none; /* Initially hide the image */
         z-index: 1000; /* Ensure it appears on top of other content */
-        width: 36%;
+        width: 570px;
+        max-width: 80%;
+
 }
 
 
@@ -73,12 +87,12 @@
 
     <body>
         <div class="eel-container">
-            <img src="images/eel1.gif" alt="Garden Eel 1" class="eel" data-fear="600" data-haste="600" id="eel1">
-            <img src="images/eel2.gif" alt="Garden Eel 2" class="eel" data-fear="800" data-haste="600" id="eel2">
-            <img src="images/eel3.gif" alt="Garden Eel 3" class="eel" data-fear="400" data-haste="600" id="eel3"> 
-            <img src="images/eel4.gif" alt="Garden Eel 4" class="eel" data-fear="700" data-haste="600" id="eel4">
+            <img src="images/eel1.jpg" alt="Garden Eel 1" class="eel" data-fear="600" data-haste="600" id="eel1">
+            <img src="images/eel2.jpg" alt="Garden Eel 2" class="eel" data-fear="800" data-haste="600" id="eel2">
+            <img src="images/eel3.jpg" alt="Garden Eel 3" class="eel" data-fear="400" data-haste="600" id="eel3"> 
+            <img src="images/eel4.jpg" alt="Garden Eel 4" class="eel" data-fear="700" data-haste="600" id="eel4">
 
-            <img src="images/theywill.png" alt="Special Image" id="specialImage" class="centered-image">
+            <img src="images/theywill.jpg" alt="Special Image" id="specialImage" class="centered-image">
 
         </div>
             <a href="#" onclick="showMessage()">
@@ -89,46 +103,63 @@
         
 
         <script>
-            function EelMove() {
-                var eels = document.querySelectorAll('.eel'); //gets all the eels (list)
-                document.body.addEventListener('mousemove', function(e) { //listens for mouse movement (then puts the X & Y values of mouse in variables below (when mouse moves))
-                    var mouseX = e.clientX; 
-                    var mouseY = e.clientY;
-        
-                    eels.forEach(eel => { //for loop goes through list of eels (and does everything below)
-                        var eelRect = eel.getBoundingClientRect(); //gets the size of the image
-                        var eelX = eelRect.left + eelRect.width / 2; //middle
-                        var eelY = eelRect.top + eelRect.height / 2;
-                        var diffX = mouseX - eelX; //calculates differences between mouse and eel 
-                        var diffY = mouseY - eelY;
-                        var distance = Math.sqrt(diffX * diffX + diffY * diffY); //pythagorean theorem! 
-        
-                        var fear = parseInt(eel.getAttribute('data-fear')); //gets the data from the eels (fear and haste (threshold an speed)) (parseint makes sure it's a number)
-                        var haste = parseInt(eel.getAttribute('data-haste'));
-        
-                        if (distance < fear) { //checks if mouse is in fear distance from eel
-                            var factor = (fear - distance) / fear;
-                            var translateY = Math.min(haste, haste * factor * factor);
-                            var rotateAngle = Math.min(20, 20 * factor); //calculates rotation (20 is max)
-                            eel.style.transform = `translateY(${translateY}px) rotate(${rotateAngle}deg)`; //moves eel with calulcated values if mouse is in fear distance
-                        } 
-                    });
+            document.addEventListener('DOMContentLoaded', () => {
+              // show the special image after 1s
+              setTimeout(() => {
+                document.getElementById('specialImage').style.display = 'block';
+              }, 1000);
+            
+              const eels    = document.querySelectorAll('.eel');
+              const offsets = new Map(Array.from(eels).map(el => [el, 0]));
+            
+              function updateOffsets(clientX, clientY) {
+                eels.forEach(el => {
+                  const r     = el.getBoundingClientRect();
+                  const dx    = clientX - (r.left + r.width / 2);
+                  const dy    = clientY - (r.top  + r.height / 2);
+                  const dist  = Math.hypot(dx, dy);
+                  const fear  = +el.dataset.fear;
+                  const haste = +el.dataset.haste;
+                  let ty = 0;
+                  if (dist < fear) {
+                    const f = (fear - dist) / fear;
+                    ty = Math.min(haste, haste * f * f);
+                  }
+                  offsets.set(el, ty);
                 });
-            }
+              }
+            
+              document.body.addEventListener('mousemove', e => {
+                updateOffsets(e.clientX, e.clientY);
+              });
+            
+              document.body.addEventListener('touchmove', e => {
+                const t = e.touches[0];
+                updateOffsets(t.clientX, t.clientY);
+              }, { passive: true });
 
-        
-            document.addEventListener('DOMContentLoaded', EelMove); //function is called when the page loads
-
-            document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        document.getElementById('specialImage').style.display = 'block';
-    }, 1000); // 2000 milliseconds = 2 seconds
+              document.body.addEventListener('touchend', () => {
+  eels.forEach(el => offsets.set(el, 0));
 });
-
+document.body.addEventListener('touchcancel', () => {
+  eels.forEach(el => offsets.set(el, 0));
+});
+            
+              (function animate() {
+                const angleDeg = Math.sin(Date.now() * 0.002) * 5; // ±5°
+                eels.forEach(el => {
+                  const ty = offsets.get(el) || 0;
+                  el.style.transform = `translateY(${ty}px) rotate(${angleDeg}deg)`;
+                });
+                requestAnimationFrame(animate);
+              })();
+            });
+            
             function showMessage() {
-            alert('There is no going back now.');
-        }
-        </script>
+              alert('There is no going back now.');
+            }
+            </script>
+            
         
         
         

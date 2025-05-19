@@ -46,7 +46,7 @@
         .blurb {
             position: fixed;
             top: 14vh; 
-            left: 16vw; 
+            left: max(16vw,70px); 
             max-width: 25%;
             width: auto;
             height: auto;
@@ -55,32 +55,53 @@
         }
 
         .fixed-gif {
+            transform: translate(-50%);
             position: fixed;
             bottom: 0;
-            right: 75px;
+            left: 70vw;
             width: 900px;
             height: auto;
+            max-width: 140vh;
             mix-blend-mode:exclusion;
             filter: blur(160px);
             animation: unblur 3s ease forwards;
-            max-width: 120vw;
         }
 
         
 
-        @media (max-width: 1200px) {
+        /* @media (max-width: 1200px) {
             .blurb {
                 left: 20%; 
                 top: 90px;
-                transition: top 1s ease, left 1s ease, right 1s ease; 
+                transition: 1s ease; 
             }
             .fixed-gif {
-                bottom: -70;
                 right: -20px; 
-                transition: top 1s ease, right 1s ease; 
+                transition: 1s ease; 
                 max-height: 90vh;
                 width: auto;
+                
             }
+        } */
+
+        @media (max-width: 950px) {
+
+            .blurb{
+                top:5%;
+                left: 50%;
+            transform: translate(-50%);
+
+            }
+
+
+            .fixed-gif {
+            left: 50%;
+            transform: translate(-50%);
+            top: max(10vh,150px);
+            max-height: 90vh;
+            width: auto;
+        }
+
         }
 
        

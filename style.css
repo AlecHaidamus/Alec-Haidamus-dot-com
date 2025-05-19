@@ -7,7 +7,6 @@ body, html {
   overflow: hidden;
 }
 
-/* === replace your existing rules with this === */
 
 .sliding-container{
   position:absolute;
@@ -16,9 +15,8 @@ body, html {
   transform:translate(-50%, -150%);
   animation:slideInToCenter 1s forwards;
 
-  width:320px;       /* powers the Cmd-+ “zoom” effect                 */
+  width:320px;                    
   aspect-ratio: 813/1134;
-
   
 }
 
@@ -30,40 +28,20 @@ body, html {
 }
 
 
-/* overwrite the whole rule */
 .handwriting{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%);   /* keeps each note centred */
-
-  /* natural size ↓ */
-  width:auto;                       /* ← no scaling - uses file’s own width  */
+  transform:translate(-50%,-50%);   
+  width:auto;                       
   height:auto;
 
   scale: 39%;
-
-  /* optional safety net – prevents a giant file from spilling everywhere   */
-  max-width:100%;                   /* (remove if you really want zero limit)*/
+  max-width:100%;               
 
   mix-blend-mode:screen;
   z-index:1;
 }
-
-/* 
-.hotspot {
-  position: absolute;
-  background-color: rgba(255, 0, 0, 0.5); 
-  cursor: pointer; 
-  z-index: 2; 
-} */
-
-
-
-/* 
-.inverted {
-  filter: invert(1);
-} */
 
 
 
